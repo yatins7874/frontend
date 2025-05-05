@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -85,16 +86,18 @@ const ClientProducts = () => {
       <Grid container spacing={3}>
         {filteredProducts.map((product) => (
           <Grid item xs={12} sm={6} md={4} key={product._id}>
-            <Card sx={{ position: 'relative', height: 350, width: 250 }}>
+            <Link to={`/client/products/${product._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Card
+              sx={{ textDecoration: 'none', color: 'inherit', position: 'relative', height: 350, width: 250 }}>
               <CardMedia
                 component="img"
                 height="200"
                 image={product.image}
                 alt={product.title}
               />
-              <CardContent>
+              <CardContent sx={{ textDecoration:'none' }}>
                 <Typography
-                  sx={{ wordWrap: 'break-word', whiteSpace: 'normal' }}
+                  sx={{ textDecoration:'none', wordWrap: 'break-word', whiteSpace: 'normal' }}
                   variant="h6"
                 >
                   {product.title}
@@ -103,10 +106,11 @@ const ClientProducts = () => {
                   Category: {product.category}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {product.instructions.slice(0, 50)}...
+                  {(product.description)}
                 </Typography>
               </CardContent>
             </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>

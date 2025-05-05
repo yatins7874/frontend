@@ -28,7 +28,7 @@ const categories = [
 const AddProduct = () => {
   const [title, setTitle] = useState('');
   const [materials, setMaterials] = useState('');
-  const [instructions, setInstructions] = useState('');
+  const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState('');
   const [success, setSuccess] = useState(false);
@@ -43,7 +43,7 @@ const AddProduct = () => {
         {
           title,
           materials: materials.split(','),
-          instructions,
+          description,
           category,
           image,
         },
@@ -57,7 +57,7 @@ const AddProduct = () => {
         setSuccess(true);
         setTitle('');
         setMaterials('');
-        setInstructions('');
+        setDescription('');
         setCategory('');
         setImage('');
       }
@@ -93,14 +93,14 @@ const AddProduct = () => {
             onChange={(e) => setMaterials(e.target.value)}
           />
           <TextField
-            label="Instructions"
+            label="Description"
             fullWidth
             required
             multiline
             rows={4}
             margin="normal"
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           <TextField
             label="Category"

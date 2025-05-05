@@ -29,9 +29,8 @@ const EditProduct = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
-    description: '',
     materials: '',
-    instructions: '',
+    description: '',
     category: '',
     image: '',
   });
@@ -46,9 +45,8 @@ const EditProduct = () => {
         }
         setFormData({
           title: productData.title || '',
-          description: productData.description || '',
           materials: productData.materials || '',
-          instructions: productData.instructions || '',
+          description: productData.description || '',
           category: productData.category || '',
           image: productData.image || '',
         });
@@ -87,9 +85,8 @@ const EditProduct = () => {
         <Typography variant="h5" gutterBottom>Edit Product</Typography>
         <form onSubmit={handleSubmit}>
           <TextField label="Title" name="title" fullWidth margin="normal" value={formData.title || ''} onChange={handleChange} />
-          <TextField label="Description" name="description" fullWidth margin="normal" value={formData.description || ''} onChange={handleChange} />
           <TextField label="Materials (comma-separated)" name="materials" fullWidth margin="normal" value={formData.materials || ''} onChange={handleChange} />
-          <TextField label="Instructions" name="instructions" fullWidth margin="normal" value={formData.instructions || ''} onChange={handleChange} multiline rows={4} />
+          <TextField label="Description" name="description" fullWidth margin="normal" value={formData.description || ''} onChange={handleChange} multiline rows={4} />
           <TextField
             select
             label="Category"

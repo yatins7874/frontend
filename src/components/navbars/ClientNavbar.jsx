@@ -21,6 +21,7 @@ const ClientNavbar = () => {
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Button component={Link} to="/client/dashboard" sx={buttonStyle}>Home</Button>
           <Button component={Link} to="/client/products" sx={buttonStyle}>Product</Button>
+          <Button component={Link} to="/favorites" sx={buttonStyle}>Favorites</Button>
           <Button component={Link} to="/client/orders" sx={buttonStyle}>My Orders</Button>
           <Button component={Link} to="/about" sx={buttonStyle}>About</Button>
           <Button onClick={handleLogout} sx={buttonStyle1}>Logout</Button>

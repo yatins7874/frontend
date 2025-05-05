@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Typography,
@@ -9,20 +9,12 @@ import {
   CardContent,
   Stack,
 } from '@mui/material';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FeaturedCarousel from '../../components/FeaturedCarousel';
 import Footer from '../../components/footer/Footer';
+import { Rating } from '@mui/material';
 
-
-
-const trendingProducts = [
-  { title: 'Compost Turner Machine', image: 'https://organicfertilizermachine.com/wp-content/uploads/2017/05/Commercial-Compost-Windrow-Turner.jpg' },
-  { title: 'Vermicompost Bin System', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTnRoj5zYUbayy37wcedYdD5GqgNsCksTpPA&s' },
-  { title: 'Biogas Plant', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_nctgtuWNK_JLpwP0J0DSO3ciEgVRtQLwCw&s' },
-  { title: 'Manure Separator (Solid-Liquid)', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxPpc-BEGEIzlgnFC1yTPDjc6gU_O6Tn7K4A&s' },
-  { title: 'Organic Waste Converter (OWC)', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnk_j2ttPU9X2vcc_RXqhls3KgST0smdXCnA&s' },
-  { title: 'Baling Machine for Crop Residue ', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHYn2K2nsFg1uQXsAfmjxkOhmfHlOlCDxAOg&s' },
-];
 
 const featuredContent = {
   bigCard: {
@@ -39,6 +31,22 @@ const featuredContent = {
 
 const ClientDashboard = () => {
   const navigate = useNavigate();
+  const [topRatedProducts, setTopRatedProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchTopRatedProducts = async () => {
+      try {
+          const response = await axios.get('http://localhost:5000/api/products/top-rated');
+          setTopRatedProducts(response.data);
+      } catch (error) {
+          console.error('Error fetching top-rated products:', error);
+          alert('Failed to load top-rated products');
+      }
+  };
+  
+
+    fetchTopRatedProducts();
+  }, []);
 
   return (
     <Box sx={{ backgroundImage: 'url(/images/bg.jpg)',minHeight: '100vh',
@@ -121,31 +129,37 @@ const ClientDashboard = () => {
 
         {/* Top Trending Products */}
         <Box sx={{ mb: 6, textAlign: 'center' }}>
-          <Typography variant="h4" sx={{ textAlign:'left', fontWeight: 'bold', mb: 3 }}>
-            Trending Products
+          <Typography variant="h4" sx={{ textAlign: 'left', fontWeight: 'bold', mb: 3 }}>
+            Top Rated Products
           </Typography>
-          <Grid container spacing={2} justifyContent="center">
-            {trendingProducts.map((product, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={2.4} key={index}>
-                <Card sx={{ borderRadius: 3, width:'224px', height: '100%', boxShadow: 3, 
+          <Grid container spacing={3}>
+        {topRatedProducts.map((product) => (
+          <Grid item key={product._id} xs={12} sm={6} md={4}>
+            <Card sx={{ borderRadius: 3, width:'224px', height: '100%', boxShadow: 3, 
                     transition: 'transform 0.3s ease',
                     '&:hover': {
                       transform: 'scale(1.05)',
                     },
-                 }}>
-                  <CardMedia
+                 }}
+            >
+              <CardMedia
                     component="img"
                     height="160"
                     image={product.image}
                     alt={product.title}
                   />
-                  <CardContent>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                      {product.title}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              <CardContent>
+                <Typography variant="h5">{product.title}</Typography>
+                <Typography variant="body2" color="textSecondary">{product.description}</Typography>
+                <Typography variant="h6">Price:{product.price} ₹</Typography>
+                <Rating 
+                  value={product.avgRating || 0} 
+                  precision={0.5} 
+                  readOnly 
+                />
+              </CardContent>
+            </Card>
+          </Grid>
             ))}
           </Grid>
         </Box>

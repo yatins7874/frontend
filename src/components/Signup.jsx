@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import {
-  TextField, Button, MenuItem, Typography, Box, Paper, IconButton
+  TextField, Button, MenuItem, Typography, Box, Paper, IconButton, CircularProgress
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import API from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import { toast } from 'react-toastify';  // Import toast for triggering notifications
 
 const roles = ['client', 'farmer'];
 
@@ -21,9 +25,20 @@ const Signup = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);  // New loading state
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prev => !prev);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(prev => !prev);
   };
 
   const validate = () => {
@@ -50,6 +65,8 @@ const Signup = () => {
   const handleSubmit = async () => {
     if (!validate()) return;
 
+    setLoading(true);  // Start loading
+
     try {
       const res = await API.post('/auth/register', {
         name: form.name,
@@ -59,10 +76,12 @@ const Signup = () => {
         role: form.role
       });
 
-      alert(res.data.message);
+      toast.success(res.data.message);  // Success toast
       navigate('/login');
     } catch (err) {
-      alert(err.response?.data?.message || 'Signup failed');
+      toast.error(err.response?.data?.message || 'Signup failed');  // Error toast
+    } finally {
+      setLoading(false);  // Stop loading
     }
   };
 
@@ -97,14 +116,40 @@ const Signup = () => {
           error={!!errors.phone} helperText={errors.phone}
         />
         <TextField
-          fullWidth margin="normal" name="password" label="Password" type="password"
+          fullWidth margin="normal" name="password" label="Password" type={showPassword ? 'text' : 'password'}
           onChange={handleChange} value={form.password}
           error={!!errors.password} helperText={errors.password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={togglePasswordVisibility}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
-          fullWidth margin="normal" name="confirmPassword" label="Confirm Password" type="password"
+          fullWidth margin="normal" name="confirmPassword" label="Confirm Password" type={showConfirmPassword ? 'text' : 'password'}
           onChange={handleChange} value={form.confirmPassword}
           error={!!errors.confirmPassword} helperText={errors.confirmPassword}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle confirm password visibility"
+                  onClick={toggleConfirmPasswordVisibility}
+                  edge="end"
+                >
+                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <TextField
           fullWidth select margin="normal" name="role" label="Role"
@@ -115,7 +160,15 @@ const Signup = () => {
           ))}
         </TextField>
 
-        <Button fullWidth variant="contained" onClick={handleSubmit}>Sign Up</Button>
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={loading}  // Disable button while loading
+        >
+          {loading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Sign Up'}
+        </Button>
+
         <Button sx={{ marginTop: 2 }} fullWidth variant="outlined" color="secondary" onClick={() => navigate('/login')}>
           Already have an account? Login
         </Button>
