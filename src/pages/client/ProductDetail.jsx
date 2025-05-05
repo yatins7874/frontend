@@ -79,6 +79,33 @@ const ProductDetail = () => {
     }
   };
 
+  const handleContact = async (productId) => {
+    const message = prompt("Enter a message for the dealer:");
+  
+    if (!message) return; // Prevent empty messages
+  
+    try {
+      const token = localStorage.getItem('token');
+  
+      const res = await axios.post('http://localhost:5000/api/inquiries/contact', {
+        productId,
+        message
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      alert(res.data.message); // Or use toast
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || 'Error contacting dealer');
+    }
+  };
+  
+  
+  
+
   const handleRatingSubmit = async () => {
     if (!newRating.name || !newRating.stars || !newRating.message) {
       return toast.warning("Please fill all fields");
@@ -131,6 +158,13 @@ const ProductDetail = () => {
               sx={{ mt: 2 }}
             >
               {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+            </Button>
+            <Button 
+              variant="contained" 
+              sx={{ mt: 2 }} 
+              onClick={() => handleContact(product._id)}
+            >
+              Contact Dealer
             </Button>
 
             {/* Rating Form */}

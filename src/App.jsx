@@ -29,6 +29,7 @@ import About from './pages/About';
 import ProductDetail from './pages/client/ProductDetail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import MyInquiries from './pages/client/MyInquiries';
 
 const App = () => {
   return (
@@ -93,6 +94,11 @@ const App = () => {
           path="/favorites" 
           element={<UserLayout><FavoritesPage /></UserLayout>} 
         />
+        <Route 
+          path="/client/myinquiries" 
+          element={<UserLayout><MyInquiries /></UserLayout>}
+        />
+
         {/* Farmer Routes */}
         <Route 
           path="/farmer/dashboard" 
