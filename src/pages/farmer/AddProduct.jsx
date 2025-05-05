@@ -67,8 +67,11 @@ const AddProduct = () => {
   };
 
   return (
+    <Box sx={{ minHeight:'100vh', backgroundImage: 'url("https://www.shutterstock.com/image-photo/wooden-table-top-on-blur-600nw-2257635199.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' }}>
     <Box p={4} maxWidth={600} margin="auto">
-      <Paper elevation={3} sx={{ p: 4 }}>
+      <Paper elevation={3} sx={{ bgcolor:'rgba(255, 255, 255, 0.62)', p: 4 }}>
         <Typography variant="h5" gutterBottom>
           Add New Product
         </Typography>
@@ -132,6 +135,7 @@ const AddProduct = () => {
           Product added successfully!
         </Alert>
       </Snackbar>
+    </Box>
     </Box>
   );
 };

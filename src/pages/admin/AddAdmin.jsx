@@ -3,7 +3,8 @@ import {
   Container,
   Typography,
   TextField,
-  Button
+  Button,
+  Box
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import API from '../../services/api';
@@ -24,6 +25,10 @@ const AddAdmin = () => {
   };
 
   return (
+    <Box sx={{ mt:-6, pt:2, minHeight:'100vh',
+      backgroundImage: 'url("https://i.pinimg.com/736x/dd/f4/0b/ddf40b85196cbc1028a907616990ba92.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' }}>
     <Container>
       <Typography variant="h5" gutterBottom>
         Add New Admin
@@ -59,6 +64,7 @@ const AddAdmin = () => {
         </Button>
       </form>
     </Container>
+    </Box>
   );
 };
 

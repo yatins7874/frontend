@@ -25,7 +25,10 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <Box p={3}>
+    <Box sx={{ mt: -6,minHeight: '100vh',
+      backgroundImage: 'url("/images/bg.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' }} p={3}>
       <Grid container spacing={3} justifyContent="center">
         {cardData.map((item, index) => (
           <Grid item key={index}>
@@ -36,7 +39,7 @@ const AdminDashboard = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: '#f5f5f5',
+                backgroundColor: 'rgba(255, 255, 255, 0.62)',
                 textAlign: 'center',
                 boxShadow: 3,
               }}

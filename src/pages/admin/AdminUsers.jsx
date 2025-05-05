@@ -63,6 +63,9 @@ const AdminUsers = () => {
   const groupByRole = (role) => filteredUsers.filter((user) => user.role === role);
 
   return (
+    <Box sx={{ mt:-10, pt:3, backgroundImage: 'url("https://www.shutterstock.com/image-photo/wooden-table-top-on-blur-600nw-2257635199.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' }}>
     <Container sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         Manage Users
@@ -70,10 +73,11 @@ const AdminUsers = () => {
 
       {/* Search Bar */}
       <TextField
+        color='white'
         fullWidth
         placeholder="Search by name or email..."
         variant="outlined"
-        sx={{ my: 3 }}
+        sx={{ color:'white', my: 3 }}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         InputProps={{
@@ -96,7 +100,7 @@ const AdminUsers = () => {
               {role.charAt(0).toUpperCase() + role.slice(1)}s
             </Typography>
             <Divider sx={{ mb: 2 }} />
-            <TableContainer component={Paper}>
+            <TableContainer sx={{ bgcolor:'rgba(255, 255, 255, 0.62)' }} component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -137,6 +141,7 @@ const AdminUsers = () => {
         </DialogActions>
       </Dialog>
     </Container>
+    </Box>
   );
 };
 

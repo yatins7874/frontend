@@ -8,6 +8,7 @@ import {
   Typography,
   Paper,
   MenuItem,
+  Box,
 } from '@mui/material';
 
 const categories = [
@@ -78,8 +79,11 @@ const EditProduct = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
+    <Box sx={{ mt:-4.1, minHeight:'120vh', backgroundImage: 'url("https://www.shutterstock.com/image-photo/wooden-table-top-on-blur-600nw-2257635199.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center' }}>
+    <Container maxWidth="md" sx={{ pt:6, mt: 4 }}>
+      <Paper elevation={3} sx={{ bgcolor:'rgba(255, 255, 255, 0.62)', p: 4 }}>
         <Typography variant="h5" gutterBottom>Edit Product</Typography>
         <form onSubmit={handleSubmit}>
           <TextField label="Title" name="title" fullWidth margin="normal" value={formData.title || ''} onChange={handleChange} />
@@ -104,6 +108,7 @@ const EditProduct = () => {
         </form>
       </Paper>
     </Container>
+    </Box>
   );
 };
 

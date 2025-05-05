@@ -30,8 +30,6 @@ import EditProduct from './pages/farmer/EditProduct';
 //Visitor Pages
 
 
-import VisitorProducts from './pages/visitor/VisitorProducts';
-import VisitorHome from './pages/visitor/VisitorHome';
 import About from './pages/About';
 
 
@@ -45,8 +43,6 @@ const App = () => {
 
       {/* Default User Pages */}
 
-      <Route path="/" element={<UserLayout><VisitorHome /></UserLayout>}/>
-      <Route path="/products" element={<UserLayout><VisitorProducts /></UserLayout>}/>
       <Route path="/about" element={<UserLayout><About /></UserLayout>} />
 
       {/* Role-Based Dashboards */}
@@ -59,8 +55,9 @@ const App = () => {
  
       {/* Client */}
  
-      <Route path="/client/dashboard" element={<PrivateRoute allowedRoles={['client']}><UserLayout><ClientDashboard /></UserLayout></PrivateRoute>}/>
-      <Route path="/client/products" element={<PrivateRoute allowedRoles={['client']}><UserLayout><ClientProducts /></UserLayout></PrivateRoute>} />
+      <Route path="/" element={<UserLayout><ClientDashboard /></UserLayout>}/>
+      <Route path="/client/dashboard" element={<UserLayout><ClientDashboard /></UserLayout>}/>
+      <Route path="/client/products" element={<UserLayout><ClientProducts /></UserLayout>} />
 
 
         {/* Farmer */}

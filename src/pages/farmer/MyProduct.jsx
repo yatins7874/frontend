@@ -62,14 +62,18 @@ const MyProducts = () => {
   }, []);
 
   return (
-    <Box p={4}>
+    <Box sx={{
+      backgroundImage: 'url("https://www.shutterstock.com/image-photo/wooden-table-top-on-blur-600nw-2257635199.jpg")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }} p={4}>
       <Typography variant="h4" gutterBottom>
         My Products
       </Typography>
       <Grid container spacing={3}>
         {products.map((product) => (
           <Grid item xs={12} sm={6} md={4} key={product._id}>
-            <Card sx={{ position: 'relative', height: '420px', width:'200px' }}>
+            <Card sx={{ bgcolor:'rgba(255, 255, 255, 0.62)' ,position: 'relative', height: '100%', width:'260px' }}>
               <CardMedia
                 component="img"
                 height="160"
